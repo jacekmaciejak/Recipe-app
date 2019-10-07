@@ -1,0 +1,22 @@
+{
+  "name": "recipe-app",
+  "version": "1.0.0",
+  "description": "Recipe app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacekmaciejak/Recipe-app.git"
+  },
+  "author": "Jacek Maciejak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacekmaciejak/Recipe-app/issues"
+  },
+  "homepage": "https://github.com/jacekmaciejak/Recipe-app#readme",
+  "devDependencies": {
+    "webpack": "^4.41.0"
+  }
+}
