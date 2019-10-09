@@ -3846,19 +3846,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _test = __webpack_require__(/*! ./test */ \"./src/js/test.js\");\n\nvar _test2 = _interopRequireDefault(_test);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar y = 4234234; // Global app controller\n\n\nconsole.log(_test2.default);\nconsole.log(y);\n\n//# sourceURL=webpack:///./src/js/index.js?");
-
-/***/ }),
-
-/***/ "./src/js/test.js":
-/*!************************!*\
-  !*** ./src/js/test.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nconsole.log(\"imported module\");\nexports.default = 7386428427;\n\n//# sourceURL=webpack:///./src/js/test.js?");
+eval("// import string from \"./models/Search\";\n// //import { add as a, multiplay, ID } from \"./views/searchView\";\n// import * as searchView from \"./views/searchView\";\n// console.log(\n//   `using importeddddd funcions! ${searchView.add(\n//     searchView.ID,\n//     5\n//   )} => ${searchView.multiplay(4, 10)} => ${searchView.multiplay(4, 9)} `\n// );\n\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
