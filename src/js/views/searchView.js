@@ -9,6 +9,20 @@ export const clearInput = () => {
 export const clearResList = () => {
   elements.searchResList.innerHTML = ""; //czyszczenie pola z wynikami wyszukiwania
 };
+//funkcja skracajaca dlugosc tytulu do okrslonej liczby znakow
+const limitRecipeTitle = (title, limit = 20) => {
+  const newTitle = [];
+  if (title.length > limit) {
+    title.split(" ").reduce((acc, cur) => {
+      if (acc + cur.length <= limit) {
+        newTitle.push(cur);
+      }
+      return acc + cur.length;
+    }, 0);
+    return `${newTitle.join(" ")} ...`;
+  }
+  return title;
+};
 
 //funkcja wyswietlajaca wynik wyszukiwania
 const renderRecipe = recipe => {
@@ -20,7 +34,9 @@ const renderRecipe = recipe => {
                     <img src="${recipe.image_url}" alt="${recipe.title}">
                 </figure>
                 <div class="results__data">
-                    <h4 class="results__name">${recipe.title}</h4>
+                    <h4 class="results__name">${limitRecipeTitle(
+                      recipe.title
+                    )}</h4>
                     <p class="results__author">${recipe.publisher}</p>
                 </div>
             </a>
