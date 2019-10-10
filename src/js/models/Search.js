@@ -18,7 +18,6 @@ export default class Search {
         `${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`
       ); //zamiast metody fetch, dziala na wszystkich przegladarkach, musimy ja zainstalowac, sluzy do pobierania danych, jako parametr dajemy adres API URL, oddzielamy "?" i dodajemy kolejne parametry
       this.result = res.data.recipes;
-      //console.log(this.result);
     } catch (error) {
       alert(error);
     }
