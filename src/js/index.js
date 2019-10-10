@@ -19,7 +19,7 @@ const controlSearch = async () => {
     state.search = new Search(query);
     //3)Prepare UI for results
     searchView.clearInput(); //wywolanie funkcji z searchView
-    searchView.clearResList(); //wywolanie funkcji z searchResList
+    searchView.clearResult(); //wywolanie funkcji z searchResList
     renderLoader(elements.searchRes); //wywolanie funkcji loadera
 
     //4)Search for recipes
@@ -29,11 +29,17 @@ const controlSearch = async () => {
     searchView.renderResults(state.search.result);
   }
 };
+//funkcja wyszukujaca przepisow w API
 elements.searchForm.addEventListener("submit", e => {
   e.preventDefault(); //powstrzymuje kazdorazowe odswiezanie strony
   controlSearch();
 });
-// ----------- 3 ----------------
-// const search = new Search("pizza");
-// console.log(search);
-// search.getResault();
+//funkcja obslugujaca przycisk przejscia do anstepnej strony
+elements.searchResPages.addEventListener("click", e => {
+  const btn = e.target.closest(".btn-inline"); //metoda closest powoduje ze caly przycisk bedzie reagowal na nacisniecie
+  if (btn) {
+    const goToPage = parseInt(btn.dataset.goto, 10); //to integer
+    searchView.clearResult(); //wywolanie funkcji z searchResList
+    searchView.renderResults(state.search.result, goToPage);
+  }
+});

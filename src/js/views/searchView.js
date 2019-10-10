@@ -6,11 +6,12 @@ export const getInput = () => elements.searchInput.value; //pobiera wartosc z po
 export const clearInput = () => {
   elements.searchInput.value = ""; //czyszczenie pola wyszukujacego
 };
-export const clearResList = () => {
+export const clearResult = () => {
   elements.searchResList.innerHTML = ""; //czyszczenie pola z wynikami wyszukiwania
+  elements.searchResPages.innerHTML = ""; //czyszczenie polaz przyciskami, dodaje nowe przyciski
 };
 //funkcja skracajaca dlugosc tytulu do okrslonej liczby znakow
-const limitRecipeTitle = (title, limit = 20) => {
+const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
   if (title.length > limit) {
     title.split(" ").reduce((acc, cur) => {
@@ -45,7 +46,50 @@ const renderRecipe = recipe => {
   //wyswietlanie zmiennej markaup w elemencie searchResList pobranym z base.js
   elements.searchResList.insertAdjacentHTML("beforeend", markup);
 };
+
+//type: 'prev' or 'next'
+const createButton = (page, type) => `
+                <button class="btn-inline results__btn--${type}" data-goto=${
+  type === "prev" ? page - 1 : page + 1
+}>
+<span>Page ${type === "prev" ? page - 1 : page + 1}</span>
+                    <svg class="search__icon">
+                        <use href="img/icons.svg#icon-triangle-${
+                          type === "prev" ? "left" : "right"
+                        }"></use>
+                    </svg>
+
+                </button>
+`;
+
+//przyciski do zmiany strony z wynikiem przepisow
+const renderButtons = (page, numResults, resPerPage) => {
+  const pages = Math.ceil(numResults / resPerPage); //ilosc stron z odnalezionymi przepisami, Math.ceil zaokragli ilość stron w górę tzn. jesli bedzie 4.5 strony to zaokragli do 5 stron
+  let button;
+  if (page === 1 && pages > 1) {
+    //Only button to go to next page, first page
+    button = createButton(page, "next");
+  } else if (page < pages) {
+    //Both of buttons, strony posrednie
+    button = `
+      ${createButton(page, "prev")}
+      ${createButton(page, "next")}
+      `;
+  } else if (page === pages && pages > 1) {
+    //Only button to go to preview page, last page
+    button = createButton(page, "prev");
+  }
+  elements.searchResPages.insertAdjacentHTML("afterbegin", button);
+};
+
 //funkcja wykonujaca petle po funkcji powyzej
-export const renderResults = recipes => {
-  recipes.forEach(renderRecipe);
+export const renderResults = (recipes, page = 1, resPerPage = 10) => {
+  //render results of currente page
+  const start = (page - 1) * resPerPage; //ilosc przepisow na kazdej stronie
+  const end = page * resPerPage;
+
+  recipes.slice(start, end).forEach(renderRecipe);
+
+  //render pagination buttons
+  renderButtons(page, recipes.length, resPerPage);
 };
