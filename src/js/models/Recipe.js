@@ -17,7 +17,7 @@ export default class Recipe {
       this.ingredients = res.data.recipe.ingredients;
     } catch (error) {
       console.log(error);
-      alert("nskjsnkdjnskjnskjsndkfj");
+      alert("Something went wrong :(");
     }
   }
   calcTime() {
@@ -35,10 +35,10 @@ export default class Recipe {
     const unitsLong = [
       "tablespoons",
       "tablespoon",
-      "ounce",
       "ounces",
-      "teaspoon",
+      "ounce",
       "teaspoons",
+      "teaspoon",
       "cups",
       "pounds"
     ];
@@ -60,8 +60,45 @@ export default class Recipe {
         ingredient = ingredient.replace(unit, unitsShort[i]);
       });
       //2) Remove parentheses
+      ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
 
       //3) Parse ingredients into count, unit and ingredient
+      const arrIng = ingredient.split(" ");
+      const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+      let objIng;
+      if (unitIndex > -1) {
+        //There is a unit
+        //Example: 4 1/2 cups, arrCount is [4, 1/2]
+        const arrCount = arrIng.slice(0, unitIndex);
+
+        let count;
+        if (arrCount.length === 1) {
+          count = eval(arrIng[0].replace("-", "+")); //eval i replace zamienia - na +
+        } else {
+          count = eval(arrIng.slice(0, unitIndex).join("+")); //eval("4 + 1/2") --> 4.5
+        }
+
+        objIng = {
+          count,
+          unit: arrIng[unitIndex],
+          ingredient: arrIng.slice(unitIndex + 1).join("")
+        };
+      } else if (parseInt(arrIng[0], 10)) {
+        //There is no unit, but 1st element is number, bierzemy pierwszy element z tablicy (moze byc string, tez zostanie zmieniony na liczbe, musi byc parametr 10) za pomoca parseInt konwertujemy na liczbe
+        objIng = {
+          count: parseInt(arrIng[0], 10),
+          unit: "",
+          ingredient: arrIng.slice(1).join(" ")
+        };
+      } else if (unitIndex === -1) {
+        //There is no unit an no number in 1st position
+        objIng = {
+          count: 1,
+          unit: "",
+          ingredient
+        };
+      }
+      return objIng;
     });
     this.ingredients = newIngredients;
   }

@@ -40,6 +40,7 @@ elements.searchForm.addEventListener("submit", e => {
   e.preventDefault(); //powstrzymuje kazdorazowe odswiezanie strony
   controlSearch();
 });
+
 //funkcja obslugujaca przycisk przejscia do anstepnej strony
 elements.searchResPages.addEventListener("click", e => {
   const btn = e.target.closest(".btn-inline"); //metoda closest powoduje ze caly przycisk bedzie reagowal na nacisniecie
@@ -64,8 +65,9 @@ const controlRecipe = async () => {
     state.recipe = new Recipe(id); //nowy obiekt
 
     try {
-      //Get recipe data
+      //Get recipe data and parse ingredients
       await state.recipe.getRecipe();
+      state.recipe.parseIngredients();
       //Calculate servings and time
       state.recipe.calcTime();
       state.recipe.calcServings();
