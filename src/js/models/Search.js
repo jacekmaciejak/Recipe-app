@@ -1,6 +1,3 @@
-//70e825316658a43a8311c70321ebc460
-//Search API URL  https://www.food2fork.com/api/search
-//Recipe details API URL   https://www.food2fork.com/api/get
 import axios from "axios";
 import { key, proxy } from "../config";
 
