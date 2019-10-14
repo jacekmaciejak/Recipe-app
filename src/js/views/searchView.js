@@ -10,6 +10,19 @@ export const clearResult = () => {
   elements.searchResList.innerHTML = ""; //czyszczenie pola z wynikami wyszukiwania
   elements.searchResPages.innerHTML = ""; //czyszczenie polaz przyciskami, dodaje nowe przyciski
 };
+
+//podswiatlanie przepisu po zaznaczeniu
+export const highlightSelected = id => {
+  const resultsArr = Array.from(document.querySelectorAll(".results__link"));
+  resultsArr.forEach(el => {
+    el.classList.remove("results__link--active");
+  });
+
+  document
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add("results__link--active"); //pobieramy wszystkie linki "a" po id i dodajemy nową klasę
+};
+
 //funkcja skracajaca dlugosc tytulu do okrslonej liczby znakow
 const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
