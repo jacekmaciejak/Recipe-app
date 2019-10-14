@@ -103,4 +103,15 @@ export default class Recipe {
     });
     this.ingredients = newIngredients;
   }
+  //Aktualizacja liczby porcji i skladnikow
+  updateServings(type) {
+    //Servings - porcje
+    const newServings = type === "dec" ? this.servings - 1 : this.servings + 1; // dodawanie i odejmowanie porcji
+
+    //Ingredients - składniki
+    this.ingredients.forEach(ing => {
+      ing.count = ing.count * (newServings / this.servings);
+    });
+    this.servings = newServings;
+  }
 }
