@@ -4,10 +4,15 @@ export default class Likes {
   }
 
   addLike(id, title, author, img) {
-    const like = { id, title, author, img };
+    const like = {
+      id,
+      title,
+      author,
+      img
+    };
     this.likes.push(like);
 
-    //Perist data in localStorage
+    //Persist data in localStorage
     this.persistData();
     return like;
   }
@@ -17,7 +22,7 @@ export default class Likes {
     //[2,4,8] slice(1,2) --> returns 4, original array is [2,4,8]
     this.likes.splice(index, 1);
 
-    //Perist data in localStorage
+    //Persist data in localStorage
     this.persistData();
   }
   isLiked(id) {

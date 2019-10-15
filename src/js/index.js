@@ -20,7 +20,6 @@ import {
  */
 //------------- 4 ---------------
 const state = {};
-window.state = state;
 //----------SEARCH CONTROLLER---------
 const controlSearch = async () => {
   //1) Get query from view
@@ -158,7 +157,6 @@ const controlLike = () => {
     //Toggle the like button
     likesView.toggleLikeBtn(false);
 
-
     //Remove like from UI list
     likesView.deleteLike(currentID);
   }
@@ -169,12 +167,11 @@ const controlLike = () => {
 window.addEventListener('load', () => {
   state.likes = new Likes();
   //Restore likes
-  state.likes = readStorage();
+  state.likes.readStorage();
   //Toggle like menu button
   likesView.toggleLikeMenu(state.likes.getNumLikes());
   //Render the existing likes
   state.likes.likes.forEach(like => likesView.renderLike(like));
-
 })
 
 //Handling recipe button clicks
@@ -198,5 +195,3 @@ elements.recipe.addEventListener("click", e => {
     controlLike();
   }
 });
-
-window.l = new List();
